@@ -3,31 +3,34 @@ package entities;
 import entities.enums.StatusOrdem;
 
 import java.lang.ref.Cleaner;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 public class Ordem {
     private Date momento;
     private StatusOrdem status;
+    private Cliente cliente;
     private List<ItemOrdem> itens = new ArrayList<>();
 
     ItemOrdem itemOrdem = new ItemOrdem();
     Produto produto = new Produto();
-    Cliente cliente = new Cliente();
     LocalDateTime localDateTime = LocalDateTime.now();
-    DateTimeFormatter formatado = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public Ordem(StatusOrdem status){
         this.status=status;
 
     }
 
-    public Ordem(Date momento, StatusOrdem status) {
+    public Ordem(Date momento, StatusOrdem status, Cliente cliente) {
         this.momento = momento;
         this.status = status;
+        this.cliente = cliente;
     }
 
     public Date getMomento() {
@@ -56,22 +59,24 @@ public class Ordem {
     public void removeItem(ItemOrdem item){
         itens.remove(item);
     }
-    /*public Double total(){
-        for (ItemOrdem it : itens){
-
-
+    public Double total(){
+        double sum = 0.0;
+        for (ItemOrdem item : itens){
+           sum+= item.subTotal();
         }
-
-    }*/
+        return sum;
+    }
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Momento do pedido: "+localDateTime.format(formatado));
-        sb.append("Status do pedido: "+ status);
-        sb.append("Cliente: "+cliente.getNome()+" "+cliente.getDataAniversario()+" - "+cliente.getEmail());
-        sb.append("Itens de ordem: ");
-        sb.append(produto+" Quantidade: "+itemOrdem.getQuantidade()+", Subtotal:"+itemOrdem.subTotal());
-        sb.append("Preço total: ");
-        return sb.toString();
+        sb.append("Momento do pedido: ");
+        sb.append(sdf.format(momento)+"\n");
+        sb.append("Status da ordem: ");
+        sb.append(status+"\n");
+        sb.append("Cliente: ");
+        sb.append(cliente+"\n");
+        sb.append("Itens de pedido: ");
+
+        return toString();
     }
 
 }

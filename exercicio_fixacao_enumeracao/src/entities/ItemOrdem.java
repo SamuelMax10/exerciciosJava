@@ -4,13 +4,16 @@ public class ItemOrdem {
     private Integer quantidade;
     private Double preco;
 
+    private Produto produto;
+
     public ItemOrdem() {
 
     }
 
-    public ItemOrdem(Integer quantidade, Double preco) {
+    public ItemOrdem(Integer quantidade, Double preco, Produto produto) {
         this.quantidade = quantidade;
         this.preco = preco;
+        this.produto=produto;
     }
 
     public Integer getQuantidade() {
@@ -28,7 +31,16 @@ public class ItemOrdem {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
-    public Double subTotal(){
-        return quantidade*preco;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Double subTotal() {
+        return quantidade * preco;
     }
 }

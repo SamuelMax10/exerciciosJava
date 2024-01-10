@@ -19,28 +19,28 @@ public class Main {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        ItemOrdem itemOrdem = new ItemOrdem();
-        Produto produto = new Produto();
+
 
         System.out.println("Entre com dado do cliente: ");
         System.out.print("Nome: ");
         String nome = sc.nextLine();
         System.out.print("E-mail: ");
-        String email = sc.nextLine();
+        String email = sc.next();
         System.out.print("Data de nascimento (DD/MM/YYYY): ");
         Date dataNascimento = sdf.parse(sc.next());
+
+        Cliente cliente = new Cliente(nome, email, dataNascimento);
+
         System.out.println("Insira os dados do pedido: ");
         System.out.print("Status: ");
-        sc.nextLine();
-        String status = sc.nextLine();
-        Ordem ordem = new Ordem(StatusOrdem.valueOf(status));
-        Cliente cliente = new Cliente(nome,email,dataNascimento);
+        StatusOrdem status = StatusOrdem.valueOf(sc.next());
+
+        Ordem ordem = new Ordem(new Date(), status, cliente);
+
         System.out.print("Quantos itens para este pedido? ");
         int quantidadeItens = sc.nextInt();
-
-
-        for (int i = 1; i <= quantidadeItens; i++ ){
-            System.out.println("Insira os dados do item nº:"+i);
+        for (int i = 1; i <= quantidadeItens; i++) {
+            System.out.println("Insira os dados do item nº" + i + ":");
             System.out.print("Nome do produto: ");
             sc.nextLine();
             String nomeProduto = sc.nextLine();
@@ -48,17 +48,18 @@ public class Main {
             double precoProduto = sc.nextDouble();
             System.out.print("Quantidade: ");
             int quantidade = sc.nextInt();
-            itemOrdem = new ItemOrdem(quantidade,precoProduto);
-            produto = new Produto(nomeProduto,precoProduto);
+
+            Produto produto = new Produto(nomeProduto, precoProduto);
+            ItemOrdem itemOrdem = new ItemOrdem(quantidade, precoProduto, produto);
+
+            ordem.addItem(itemOrdem);
         }
 
+        System.out.println();
         System.out.println("RESUMO DO PEDIDO:");
         System.out.println(ordem);
 
         sc.close();
-
-
-
 
 
     }

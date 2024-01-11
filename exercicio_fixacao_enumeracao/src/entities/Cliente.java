@@ -1,8 +1,10 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Cliente {
+    public static SimpleDateFormat sdf = new SimpleDateFormat("(dd/MM/yyyy)");
     private String nome;
     private String email;
     private Date dataAniversario;
@@ -39,5 +41,12 @@ public class Cliente {
 
     public void setDataAniversario(Date dataAniversario) {
         this.dataAniversario = dataAniversario;
+    }
+
+    public String toString(){
+        return "Cliente: "
+                +nome+" "
+                +sdf.format(dataAniversario)+" - "
+                +email;
     }
 }

@@ -22,8 +22,7 @@ public class Ordem {
     LocalDateTime localDateTime = LocalDateTime.now();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-    public Ordem(StatusOrdem status){
-        this.status=status;
+    public Ordem() {
 
     }
 
@@ -53,30 +52,36 @@ public class Ordem {
         return itens;
     }
 
-    public void addItem(ItemOrdem item){
+    public void addItem(ItemOrdem item) {
         itens.add(item);
     }
-    public void removeItem(ItemOrdem item){
+
+    public void removeItem(ItemOrdem item) {
         itens.remove(item);
     }
-    public Double total(){
+
+    public Double total() {
         double sum = 0.0;
-        for (ItemOrdem item : itens){
-           sum+= item.subTotal();
+        for (ItemOrdem item : itens) {
+            sum += item.subTotal();
         }
         return sum;
     }
-    public String toString(){
+
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Momento do pedido: ");
-        sb.append(sdf.format(momento)+"\n");
+        sb.append(sdf.format(momento) + "\n");
         sb.append("Status da ordem: ");
-        sb.append(status+"\n");
-        sb.append("Cliente: ");
-        sb.append(cliente+"\n");
-        sb.append("Itens de pedido: ");
-
-        return toString();
+        sb.append(status + "\n");
+        sb.append(cliente + "\n");
+        sb.append("Itens de ordem: \n");
+        for (ItemOrdem item : itens) {
+            sb.append(item + "\n");
+        }
+        sb.append("Preço total: R$");
+        sb.append(String.format("%.2f", total()));
+        return sb.toString();
     }
 
 }

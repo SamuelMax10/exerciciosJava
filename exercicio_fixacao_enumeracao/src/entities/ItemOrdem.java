@@ -3,8 +3,8 @@ package entities;
 public class ItemOrdem {
     private Integer quantidade;
     private Double preco;
-
     private Produto produto;
+
 
     public ItemOrdem() {
 
@@ -12,8 +12,8 @@ public class ItemOrdem {
 
     public ItemOrdem(Integer quantidade, Double preco, Produto produto) {
         this.quantidade = quantidade;
-        this.preco = preco;
-        this.produto=produto;
+        this.produto = produto;
+        this.preco=preco;
     }
 
     public Integer getQuantidade() {
@@ -22,14 +22,6 @@ public class ItemOrdem {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
     }
 
     public Produto getProduto() {
@@ -41,6 +33,26 @@ public class ItemOrdem {
     }
 
     public Double subTotal() {
-        return quantidade * preco;
+        return quantidade * produto.getPreco();
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        return produto.getNome()
+                + ", R$"
+                + String.format("%.2f",preco)
+                + ", Quantidade: "
+                + getQuantidade()
+                + ", Subtotal: R$"
+                + String.format("%.2f", subTotal());
+
     }
 }
